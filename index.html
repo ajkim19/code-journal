@@ -18,12 +18,32 @@
   <body>
     <header>
       <div class="container">
-        <h1>Code Journal</h1>
+        <div class="column-full">
+          <h1>Code Journal</h1>
+        </div>
       </div>
     </header>
     <main class="container">
       <div data-view="entry-form">
-        <h1>New Entry</h1>
+        <div class="column-full">
+          <h1>New Entry</h1>
+        </div>
+        <div class="column-half">
+          <img
+            src="images/placeholder-image-square.jpg"
+            alt="placeholder-image-square.jpg" />
+        </div>
+        <div class="column-half">
+          <label for="title">Title</label><br />
+          <input type="text" id="title" /><br />
+          <label for="photoURL">Photo URL</label><br />
+          <input type="text" id="photoURL" /><br />
+        </div>
+        <div class="column-full">
+          <label for="notes">Notes</label><br />
+          <textarea name="notes" id="notes"></textarea><br />
+          <input type="button" value="Save" />
+        </div>
       </div>
       <div data-view="entries" class="hidden"></div>
     </main>
