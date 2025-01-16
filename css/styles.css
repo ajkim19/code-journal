@@ -1,0 +1,44 @@
+header {
+  color: white;
+  background-color: #562b81;
+}
+
+h1,
+label {
+  font-family: 'Proza Libre', serif;
+  font-weight: 600;
+}
+
+img,
+label,
+input,
+textarea {
+  width: 100%;
+}
+
+img,
+input,
+textarea {
+  margin-bottom: 24px;
+}
+
+label {
+  height: 22px;
+  margin-bottom: 9px;
+}
+
+input,
+textarea {
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #b6b6b6;
+}
+
+input {
+  height: 40px;
+}
+
+textarea {
+  height: 149px;
+}
