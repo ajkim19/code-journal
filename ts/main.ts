@@ -23,18 +23,20 @@ function changePhotoPreview(): void {
 }
 
 function submitForm(event: Event): void {
-  if ($entryForm && $title && $photoURL && $notes) {
-    event.preventDefault();
-    console.log('Form submitted');
-    const entry: Entry = {
-      title: $title.value,
-      photoURL: $photoURL.value,
-      notes: $notes.value,
-      entryId: data.nextEntryId
-    }
-    data.entries.push(entry);
-    data.nextEntryId++
+  if (!$title) throw new Error('$title does not exist for submitForm()');
+  if (!$photoURL) throw new Error('$photoURL does not exist for submitForm()');
+  if (!$notes) throw new Error('$notes does not exist for submitForm()');
+  event.preventDefault();
+  const entry: Entry = {
+    title: $title.value,
+    photoURL: $photoURL.value,
+    notes: $notes.value,
+    entryId: data.nextEntryId
   }
+  console.log('The form has been submitted');
+  data.entries.push(entry);
+  console.log(`The form has been added to data.entries with the ID ${data.nextEntryId}`)
+  data.nextEntryId++
 }
 
 $photoURL.addEventListener('keydown' || 'paste', changePhotoPreview);
