@@ -11,7 +11,8 @@ function writeData(): void {
 }
 
 function readData(): object {
-  const dataParsed = localStorage.getItem('data-storage');
+  const dataJSON = localStorage.getItem('data-storage');
+  const dataParsed = JSON.parse(dataJSON)
   if (!dataParsed) {
     return data
   }
