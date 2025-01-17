@@ -28,5 +28,3 @@ function readData(): Data {
 
 writeData()
 data = readData();
-
-console.log('data', data);

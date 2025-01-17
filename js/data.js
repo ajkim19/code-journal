@@ -18,4 +18,3 @@ function readData() {
 }
 writeData();
 data = readData();
-console.log('data', data);

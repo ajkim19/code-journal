@@ -34,9 +34,8 @@ function submitForm(event) {
         notes: $notes.value,
         entryId: data.nextEntryId
     };
-    console.log('The form has been submitted');
     data.entries.unshift(entry);
-    console.log("The form has been added to data.entries with the ID ".concat(data.nextEntryId));
+    console.log(data);
     data.nextEntryId++;
     // Resets the application to its original state
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
@@ -44,5 +43,6 @@ function submitForm(event) {
     $photoURL.value = "";
     $notes.value = "";
 }
-$photoURL.addEventListener('keydown' || 'paste', changePhotoPreview);
+$photoURL.addEventListener('input', changePhotoPreview);
+// $photoURL.addEventListener('paste', changePhotoPreview);
 $entryForm.addEventListener('submit', submitForm);

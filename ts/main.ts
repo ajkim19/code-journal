@@ -34,9 +34,8 @@ function submitForm(event: Event): void {
     notes: $notes.value,
     entryId: data.nextEntryId
   }
-  console.log('The form has been submitted');
   data.entries.unshift(entry);
-  console.log(`The form has been added to data.entries with the ID ${data.nextEntryId}`)
+  console.log(data);
   data.nextEntryId++
 
   // Resets the application to its original state
@@ -46,5 +45,6 @@ function submitForm(event: Event): void {
   $notes.value = "";
 }
 
-$photoURL.addEventListener('keydown' || 'paste', changePhotoPreview);
+$photoURL.addEventListener('input', changePhotoPreview);
+// $photoURL.addEventListener('paste', changePhotoPreview);
 $entryForm.addEventListener('submit', submitForm);
