@@ -39,6 +39,9 @@ function submitForm(event: Event): void {
   console.log(`The form has been added to data.entries with the ID ${data.nextEntryId}`)
   data.nextEntryId++
   $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
+  $title.value = "";
+  $photoURL.value = "";
+  $notes.value = "";
 }
 
 $photoURL.addEventListener('keydown' || 'paste', changePhotoPreview);
