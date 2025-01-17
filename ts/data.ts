@@ -5,7 +5,7 @@ interface Data {
   nextEntryId: number;
 }
 
-let data = {
+let data: Data = {
   view: 'entry-form',
   entries: [],
   editing: null,
