@@ -1,4 +1,11 @@
-const data = {
+interface Data {
+  view: string;
+  entries: object[];
+  editing: any;
+  nextEntryId: number;
+}
+
+let data = {
   view: 'entry-form',
   entries: [],
   editing: null,
@@ -10,11 +17,16 @@ function writeData(): void {
   localStorage.setItem('data-storage', dataJSON);
 }
 
-function readData(): object {
+function readData(): Data {
   const dataJSON = localStorage.getItem('data-storage');
-  const dataParsed = JSON.parse(dataJSON)
-  if (!dataParsed) {
+  if (!dataJSON) {
     return data
   }
+  const dataParsed = JSON.parse(dataJSON)
   return dataParsed
 }
+
+writeData()
+data = readData();
+
+console.log('data', data);
