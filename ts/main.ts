@@ -26,6 +26,7 @@ function submitForm(event: Event): void {
   if (!$title) throw new Error('$title does not exist for submitForm()');
   if (!$photoURL) throw new Error('$photoURL does not exist for submitForm()');
   if (!$notes) throw new Error('$notes does not exist for submitForm()');
+  if (!$photoPreview) throw new Error('$photoPreview does not exist for submitForm()');
   event.preventDefault();
   const entry: Entry = {
     title: $title.value,
@@ -37,6 +38,7 @@ function submitForm(event: Event): void {
   data.entries.push(entry);
   console.log(`The form has been added to data.entries with the ID ${data.nextEntryId}`)
   data.nextEntryId++
+  $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
 }
 
 $photoURL.addEventListener('keydown' || 'paste', changePhotoPreview);
