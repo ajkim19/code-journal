@@ -35,9 +35,11 @@ function submitForm(event: Event): void {
     entryId: data.nextEntryId
   }
   console.log('The form has been submitted');
-  data.entries.push(entry);
+  data.entries.unshift(entry);
   console.log(`The form has been added to data.entries with the ID ${data.nextEntryId}`)
   data.nextEntryId++
+  writeData()
+  // Resets the application to its original state
   $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
   $title.value = "";
   $photoURL.value = "";
