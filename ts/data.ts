@@ -9,3 +9,11 @@ function writeData(): void {
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('data-storage', dataJSON);
 }
+
+function readData(): object {
+  const dataParsed = localStorage.getItem('data-storage');
+  if (!dataParsed) {
+    return data
+  }
+  return dataParsed
+}
