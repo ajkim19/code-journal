@@ -4,21 +4,27 @@ header {
 }
 
 h1,
+h2,
 label {
+  width: 100%;
   font-family: 'Proza Libre', serif;
   font-weight: 600;
 }
 
-img,
-label,
-input,
-textarea {
+h2 {
+  font-weight: 400;
+}
+
+img {
   width: 100%;
+  aspect-ratio: calc(340 / 245);
+  object-fit: cover;
 }
 
 img,
 input,
 textarea {
+  width: 100%;
   margin-bottom: 24px;
 }
 
@@ -29,10 +35,9 @@ label {
 
 input,
 textarea {
+  font-size: 16px;
   border-radius: 4px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #b6b6b6;
+  border: 1px solid #b6b6b6;
 }
 
 input {
@@ -41,4 +46,27 @@ input {
 
 textarea {
   height: 149px;
+}
+
+input:focus,
+textarea:focus {
+  outline: 4px solid #562b81;
+}
+
+.save-btn {
+  padding: 0.5em 1em;
+  margin-bottom: 24px;
+  font-size: 16px;
+  color: white;
+  background-color: #562b81;
+  border-radius: 4px;
+  border: 0;
+}
+
+.title-photo-URL {
+  flex-direction: column;
+}
+
+.notes-save {
+  justify-content: end;
 }
