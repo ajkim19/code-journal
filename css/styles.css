@@ -54,6 +54,7 @@ textarea:focus {
 }
 
 .save-btn {
+  width: auto;
   padding: 0.5em 1em;
   margin-bottom: 24px;
   font-size: 16px;
