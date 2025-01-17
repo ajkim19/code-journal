@@ -11,9 +11,9 @@ const $photoPreview = document.querySelector<HTMLImageElement>(".photo-preview")
 if (!$photoPreview) throw new Error("$photoPreview does not exist");
 const $entryForm = document.querySelector<HTMLInputElement>('form.entry-form');
 if (!$entryForm) throw new Error('$entryForm does not exist');
-const $title = document.querySelector<HTMLInputElement>('.title');
+const $title = document.querySelector<HTMLInputElement>('#title');
 if (!$title) throw new Error('$title does not exist');
-const $notes = document.querySelector<HTMLTextAreaElement>('.notes');
+const $notes = document.querySelector<HTMLTextAreaElement>('#notes');
 if (!$notes) throw new Error('$notes does not exist');
 
 function changePhotoPreview(): void {
@@ -35,7 +35,7 @@ function submitForm(event: Event): void {
     entryId: data.nextEntryId
   }
   console.log('The form has been submitted');
-  // data.entries.unshift(entry);
+  data.entries.unshift(entry);
   console.log(`The form has been added to data.entries with the ID ${data.nextEntryId}`)
   data.nextEntryId++
 

@@ -7,10 +7,10 @@ if (!$photoPreview)
 var $entryForm = document.querySelector('form.entry-form');
 if (!$entryForm)
     throw new Error('$entryForm does not exist');
-var $title = document.querySelector('.title');
+var $title = document.querySelector('#title');
 if (!$title)
     throw new Error('$title does not exist');
-var $notes = document.querySelector('.notes');
+var $notes = document.querySelector('#notes');
 if (!$notes)
     throw new Error('$notes does not exist');
 function changePhotoPreview() {
@@ -35,7 +35,7 @@ function submitForm(event) {
         entryId: data.nextEntryId
     };
     console.log('The form has been submitted');
-    // data.entries.unshift(entry);
+    data.entries.unshift(entry);
     console.log("The form has been added to data.entries with the ID ".concat(data.nextEntryId));
     data.nextEntryId++;
     // Resets the application to its original state

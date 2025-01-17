@@ -1,6 +1,6 @@
 interface Data {
   view: string;
-  entries: object[];
+  entries: Entry[];
   editing: any;
   nextEntryId: number;
 }
@@ -22,7 +22,7 @@ function readData(): Data {
   if (!dataJSON) {
     return data
   }
-  const dataParsed = JSON.parse(dataJSON)
+  const dataParsed = JSON.parse(dataJSON) as Data
   return dataParsed
 }
 
