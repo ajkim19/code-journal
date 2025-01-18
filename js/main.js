@@ -63,7 +63,6 @@ function renderEntry(entry) {
     $liEntryItem.append($divColumnHalf1, $divColumnHalf2);
     return $liEntryItem;
 }
-console.log(renderEntry(entry));
 // Submits the form using the given inputs of the form
 function submitForm(event) {
     if (!$title)
@@ -91,5 +90,13 @@ function submitForm(event) {
     $photoURL.value = "";
     $notes.value = "";
 }
+const dataEntry = renderEntry(entry);
+$entriesList.append(dataEntry);
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryForm.addEventListener('submit', submitForm);
+document.addEventListener('DOMContentLoaded', () => {
+    for (const entry of data.entries) {
+        const dataEntry = renderEntry(entry);
+        $entriesList.append(dataEntry);
+    }
+});
