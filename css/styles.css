@@ -1,17 +1,16 @@
 header {
+  height: 54px;
   color: white;
   background-color: #562b81;
 }
 
 h1,
 h2,
-h3,
 p,
 label,
 input,
 textarea {
   width: 100%;
-  font-family: 'Proza Libre', serif;
 }
 
 h1,
@@ -86,8 +85,21 @@ ul {
   list-style-type: none;
 }
 
-li::marker {
-  display: none;
+.code-journal-header {
+  height: 54px;
+}
+
+#code-journal-header-title {
+  width: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 18px;
+  font-size: 20px;
+}
+
+#code-journal-header-entries {
+  width: auto;
+  margin: auto 0;
 }
 
 .save-btn {
@@ -107,4 +119,10 @@ li::marker {
 
 .notes-save {
   justify-content: end;
+}
+
+@media screen and (width >= 768px) {
+  img {
+    aspect-ratio: 1;
+  }
 }
