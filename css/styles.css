@@ -21,6 +21,7 @@ label {
 }
 
 h1 {
+  margin-top: 0;
   font-size: 30px;
 }
 
@@ -31,6 +32,7 @@ h2 {
 }
 
 h3 {
+  margin-right: 18px
   font-size: 20px;
   font-weight: 400;
 }
