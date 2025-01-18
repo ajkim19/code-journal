@@ -35,8 +35,8 @@ function submitForm(event: Event): void {
     entryId: data.nextEntryId
   }
   data.entries.unshift(entry);
-  console.log(data);
   data.nextEntryId++
+  writeData(data)
 
   // Resets the application to its original state
   $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
@@ -46,5 +46,4 @@ function submitForm(event: Event): void {
 }
 
 $photoURL.addEventListener('input', changePhotoPreview);
-// $photoURL.addEventListener('paste', changePhotoPreview);
 $entryForm.addEventListener('submit', submitForm);

@@ -4,11 +4,12 @@ var data = {
     editing: null,
     nextEntryId: 1,
 };
-function writeData() {
+function writeData(data) {
     var dataJSON = JSON.stringify(data);
     localStorage.setItem('data-storage', dataJSON);
 }
 function readData() {
+    console.log("Reading data");
     var dataJSON = localStorage.getItem('data-storage');
     if (!dataJSON) {
         return data;
@@ -16,5 +17,4 @@ function readData() {
     var dataParsed = JSON.parse(dataJSON);
     return dataParsed;
 }
-writeData();
 data = readData();

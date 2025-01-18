@@ -12,12 +12,13 @@ let data: Data = {
   nextEntryId: 1,
 };
 
-function writeData(): void {
+function writeData(data: Data): void {
   const dataJSON = JSON.stringify(data);
   localStorage.setItem('data-storage', dataJSON);
 }
 
 function readData(): Data {
+  console.log("Reading data")
   const dataJSON = localStorage.getItem('data-storage');
   if (!dataJSON) {
     return data
@@ -25,6 +26,4 @@ function readData(): Data {
   const dataParsed = JSON.parse(dataJSON) as Data
   return dataParsed
 }
-
-writeData()
 data = readData();
