@@ -17,6 +17,8 @@ const $title = document.querySelector<HTMLInputElement>('#title');
 if (!$title) throw new Error('$title does not exist');
 const $notes = document.querySelector<HTMLTextAreaElement>('#notes');
 if (!$notes) throw new Error('$notes does not exist');
+const $entriesList = document.querySelector<HTMLTextAreaElement>('.entries-list');
+if (!$entriesList) throw new Error('$entriesList does not exist');
 
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview(): void {
