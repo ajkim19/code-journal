@@ -5,14 +5,40 @@ header {
 
 h1,
 h2,
-label {
+h3,
+p,
+label,
+input,
+textarea {
   width: 100%;
   font-family: 'Proza Libre', serif;
+}
+
+h1,
+h2,
+label {
   font-weight: 600;
 }
 
+h1 {
+  font-size: 30px;
+}
+
 h2 {
+  font-size: 24px;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-size: 20px;
   font-weight: 400;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 26px;
+  line-height: 26px;
 }
 
 img {
@@ -51,6 +77,15 @@ textarea {
 input:focus,
 textarea:focus {
   outline: 4px solid #562b81;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+li::marker {
+  display: none;
 }
 
 .save-btn {
