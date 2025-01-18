@@ -1,20 +1,23 @@
-var data = {
+"use strict";
+// Initializes the data that will be stored in local storage
+let data = {
     view: 'entry-form',
     entries: [],
     editing: null,
     nextEntryId: 1,
 };
+// Saves data to local storage for persistent data
 function writeData(data) {
-    var dataJSON = JSON.stringify(data);
+    const dataJSON = JSON.stringify(data);
     localStorage.setItem('data-storage', dataJSON);
 }
+// Retrieves the data from local storage for the application
 function readData() {
-    console.log("Reading data");
-    var dataJSON = localStorage.getItem('data-storage');
+    const dataJSON = localStorage.getItem('data-storage');
     if (!dataJSON) {
         return data;
     }
-    var dataParsed = JSON.parse(dataJSON);
+    const dataParsed = JSON.parse(dataJSON);
     return dataParsed;
 }
 data = readData();
