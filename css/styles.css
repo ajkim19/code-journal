@@ -122,6 +122,7 @@ ul {
 }
 
 .entries-placeholder {
+  display: none;
   text-align: center;
 }
 

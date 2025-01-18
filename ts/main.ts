@@ -87,6 +87,11 @@ function submitForm(event: Event): void {
   $notes.value = "";
 }
 
+function toggleNoEntries(): void {
+  const $entriesPlaceholder = document.querySelector(".entries-placeholder") as HTMLElement;
+  $entriesPlaceholder.style.display = "block";
+}
+
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryForm.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
@@ -96,11 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const dataEntry = renderEntry(entry);
       $entriesList.append(dataEntry);
     }
-  // Appends a placeholder if there are no entries to render
+  // Displays a placeholder if there are no entries to render
   } else {
-    const $pEntriesPlaceholder = document.createElement("p");
-    $pEntriesPlaceholder.className = "entries-placeholder";
-    $pEntriesPlaceholder.textContent = "No entries have been recorded.";
-    $entriesList.append($pEntriesPlaceholder);
+    toggleNoEntries()
   }
 })
