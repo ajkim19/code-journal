@@ -25,6 +25,10 @@ function changePhotoPreview(): void {
   }
 }
 
+function renderEntry(entry: Entry): void {
+
+}
+
 // Submits the form using the given inputs of the form
 function submitForm(event: Event): void {
   if (!$title) throw new Error('$title does not exist for submitForm()');
