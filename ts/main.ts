@@ -6,14 +6,6 @@ interface Entry {
   entryId: number;
 }
 
-const entry: Entry = {
-  title: "Swedish Vallhund",
-  photoURL: "https://pet-health-content-media.chewy.com/wp-content/uploads/2024/09/11170242/202106swedish-vallhund-4.jpg",
-  notes: "The long and low Swedish Vallhund, Viking Dog of ancient legend, is a smart and sociable herder of dense coat and boundless energy.\nThese rugged cattle dogs are known for their zest for life, unique vocalizations, and cheerful demeanor.",
-  entryId: 7,
-}
-
-
 // Selects the elements of the form for adding new entries
 const $photoURL = document.querySelector<HTMLInputElement>("#photo-url");
 if (!$photoURL) throw new Error("$photoURL does not exist");
@@ -35,6 +27,7 @@ function changePhotoPreview(): void {
   }
 }
 
+// Creates an li element for an entry
 function renderEntry(entry: Entry): HTMLLIElement {
   const $liEntryItem = document.createElement("li");
   $liEntryItem.className = "row entry-item";
@@ -94,14 +87,20 @@ function submitForm(event: Event): void {
   $notes.value = "";
 }
 
-const dataEntry = renderEntry(entry);
-$entriesList.append(dataEntry);
-
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryForm.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
-  for (const entry of data.entries) {
-    const dataEntry = renderEntry(entry);
-    $entriesList.append(dataEntry);
+  // Renders then appends each existing entry to the ul element
+  if (data.entries) {
+    for (const entry of data.entries) {
+      const dataEntry = renderEntry(entry);
+      $entriesList.append(dataEntry);
+    }
+  // Appends a placeholder if there are no entries to render
+  } else {
+    const $pEntriesPlaceholder = document.createElement("p");
+    $pEntriesPlaceholder.className = "entries-placeholder";
+    $pEntriesPlaceholder.textContent = "No entries have been recorded.";
+    $entriesList.append($pEntriesPlaceholder);
   }
 })

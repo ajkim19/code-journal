@@ -121,6 +121,10 @@ ul {
   justify-content: end;
 }
 
+.entries-placeholder {
+  text-align: center;
+}
+
 @media screen and (width >= 768px) {
   img {
     aspect-ratio: 1;
