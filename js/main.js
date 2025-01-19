@@ -91,25 +91,25 @@ function submitForm(event) {
         notes: $notes.value,
         entryId: data.nextEntryId
     };
-    // Renders a DOM tree for the newly submitted entry object
-    renderEntry(entry);
-    // Prepends the new DOM tree to the unordered list.
-    data.entries.unshift(entry);
-    // Shows the ”entries” view
-    viewSwap("entries");
-    // Conditionally uses the toggleNoEntries function as needed to remove the no entries text
+    // Appends new entry to data.entries and saved in local storage
+    data.entries.push(entry);
+    data.nextEntryId++;
+    writeData(data);
     if (data.entries) {
+        $entriesList.innerHTML = "";
         for (const entry of data.entries) {
+            // Renders a DOM tree for the newly submitted entry object
             const dataEntry = renderEntry(entry);
-            $entriesList.append(dataEntry);
+            // Prepends the new DOM tree to the unordered list.
+            $entriesList.prepend(dataEntry);
         }
         // Displays a placeholder if there are no entries to render
     }
     else {
         toggleNoEntries();
     }
-    data.nextEntryId++;
-    writeData(data);
+    // Shows the ”entries” view
+    viewSwap("entries");
     // Resets the application to its original state
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
     $title.value = "";
@@ -139,19 +139,17 @@ function viewSwap(string) {
     }
     data.view = string;
     writeData(data);
-    console.log(data.view);
 }
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryFormView.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
     // Shows the view which was displayed prior to page refresh
     viewSwap(data.view);
-    console.log(data.view);
     // Renders then appends each existing entry to the ul element
     if (data.entries) {
         for (const entry of data.entries) {
             const dataEntry = renderEntry(entry);
-            $entriesList.append(dataEntry);
+            $entriesList.prepend(dataEntry);
         }
         // Displays a placeholder if there are no entries to render
     }

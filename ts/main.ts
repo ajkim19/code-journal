@@ -19,7 +19,7 @@ const $title = document.querySelector<HTMLInputElement>('#title');
 if (!$title) throw new Error('$title does not exist');
 const $notes = document.querySelector<HTMLTextAreaElement>('#notes');
 if (!$notes) throw new Error('$notes does not exist');
-const $entriesList = document.querySelector<HTMLTextAreaElement>('.entries-list');
+const $entriesList = document.querySelector<HTMLUListElement>('.entries-list');
 if (!$entriesList) throw new Error('$entriesList does not exist');
 
 // Selects the elements of entries
@@ -89,28 +89,27 @@ function submitForm(event: Event): void {
     notes: $notes.value,
     entryId: data.nextEntryId
   }
-  // Renders a DOM tree for the newly submitted entry object
-  renderEntry(entry);
 
-  // Prepends the new DOM tree to the unordered list.
-  data.entries.unshift(entry);
+  // Appends new entry to data.entries and saved in local storage
+  data.entries.push(entry);
+  data.nextEntryId++
+  writeData(data)
 
-  // Shows the ”entries” view
-  viewSwap("entries");
-
-  // Conditionally uses the toggleNoEntries function as needed to remove the no entries text
   if (data.entries) {
+    $entriesList.innerHTML = "";
     for (const entry of data.entries) {
+      // Renders a DOM tree for the newly submitted entry object
       const dataEntry = renderEntry(entry);
-      $entriesList.append(dataEntry);
+      // Prepends the new DOM tree to the unordered list.
+      $entriesList.prepend(dataEntry);
     }
   // Displays a placeholder if there are no entries to render
   } else {
     toggleNoEntries()
   }
 
-  data.nextEntryId++
-  writeData(data)
+  // Shows the ”entries” view
+  viewSwap("entries");
 
   // Resets the application to its original state
   $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
@@ -151,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (data.entries) {
     for (const entry of data.entries) {
       const dataEntry = renderEntry(entry);
-      $entriesList.append(dataEntry);
+      $entriesList.prepend(dataEntry);
     }
   // Displays a placeholder if there are no entries to render
   } else {
