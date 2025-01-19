@@ -87,6 +87,7 @@ function submitForm(event: Event): void {
     notes: $notes.value,
     entryId: data.nextEntryId
   }
+  renderEntry(entry);
   data.entries.unshift(entry);
   data.nextEntryId++
   writeData(data)
