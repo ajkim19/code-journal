@@ -78,6 +78,8 @@ function submitForm(event: Event): void {
   if (!$photoURL) throw new Error('$photoURL does not exist for submitForm()');
   if (!$notes) throw new Error('$notes does not exist for submitForm()');
   if (!$photoPreview) throw new Error('$photoPreview does not exist for submitForm()');
+  if (!$entriesList) throw new Error('$entriesList does not exist for');
+
   event.preventDefault();
 
   // Creates a new Entry and prepending it the entries array in data
