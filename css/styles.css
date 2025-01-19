@@ -1,5 +1,6 @@
 header {
-  height: 54px;
+  height: 64px;
+  margin-bottom: 18px;
   color: white;
   background-color: #562b81;
 }
@@ -21,25 +22,28 @@ label {
 
 h1 {
   margin-top: 0;
-  font-size: 30px;
+  margin-bottom: 12px;
+  font-size: 40px;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 30px;
   margin-top: 0;
   margin-bottom: 12px;
 }
 
 h3 {
-  margin-right: 18px
+  margin-right: 18px;
   font-size: 20px;
   font-weight: 400;
 }
 
-p {
+p,
+a {
+  font-size: 20px;
   margin-top: 0;
   margin-bottom: 26px;
-  line-height: 26px;
+  line-height: 30.5px;
 }
 
 img {
@@ -86,7 +90,7 @@ ul {
 }
 
 .code-journal-header {
-  height: 54px;
+  height: 64px;
 }
 
 #code-journal-header-title {
@@ -94,12 +98,18 @@ ul {
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 18px;
-  font-size: 20px;
+  font-size: 26px;
 }
 
 #code-journal-header-entries {
   width: auto;
   margin: auto 0;
+  color: white;
+  text-decoration: none;
+}
+
+.entry-form-view {
+  display: block;
 }
 
 .save-btn {
@@ -121,9 +131,22 @@ ul {
   justify-content: end;
 }
 
+.entries-view {
+  display: none;
+}
+
 .entries-placeholder {
   display: none;
   text-align: center;
+}
+
+.entry-item {
+  margin-bottom: 30px;
+}
+
+.entry-title-notes {
+  box-sizing: border-box;
+  padding-left: 25px;
 }
 
 @media screen and (width >= 768px) {

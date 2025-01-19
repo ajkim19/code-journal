@@ -1,14 +1,17 @@
 "use strict";
-// Selects the elements of the form for adding new entries
+// Selects the elements of the elements of entry-form
+const $entryFormView = document.querySelector(".entry-form-view");
+if (!$entryFormView)
+    throw new Error('$entryFormView does not exist');
 const $photoURL = document.querySelector("#photo-url");
 if (!$photoURL)
     throw new Error("$photoURL does not exist");
 const $photoPreview = document.querySelector(".photo-preview");
 if (!$photoPreview)
     throw new Error("$photoPreview does not exist");
-const $entryForm = document.querySelector('form.entry-form');
-if (!$entryForm)
-    throw new Error('$entryForm does not exist');
+const $newEntryForm = document.querySelector('.new-entry-form');
+if (!$newEntryForm)
+    throw new Error('$newEntryForm does not exist');
 const $title = document.querySelector('#title');
 if (!$title)
     throw new Error('$title does not exist');
@@ -18,6 +21,13 @@ if (!$notes)
 const $entriesList = document.querySelector('.entries-list');
 if (!$entriesList)
     throw new Error('$entriesList does not exist');
+// Selects the elements of entries
+const $entriesView = document.querySelector(".entries-view");
+if (!$entriesView)
+    throw new Error('$entriesView does not exist');
+const $codeJournalHeaderEntries = document.querySelector("#code-journal-header-entries");
+if (!$codeJournalHeaderEntries)
+    throw new Error('$codeJournalHeaderEntries does not exist');
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview() {
     if ($photoURL && $photoPreview) {
@@ -35,7 +45,7 @@ function renderEntry(entry) {
     $imgEntryImage.setAttribute("src", entry.photoURL);
     $divColumnHalf1.append($imgEntryImage);
     const $divColumnHalf2 = document.createElement("div");
-    $divColumnHalf2.className = "column-half";
+    $divColumnHalf2.className = "column-half entry-title-notes";
     const $h2EntryTitle = document.createElement("h2");
     $h2EntryTitle.className = "entry-title";
     $h2EntryTitle.textContent = entry.title;
@@ -85,12 +95,31 @@ function submitForm(event) {
     $photoURL.value = "";
     $notes.value = "";
 }
+// Adds a placeholder if no entries exist
 function toggleNoEntries() {
     const $entriesPlaceholder = document.querySelector(".entries-placeholder");
+    if (!$entriesPlaceholder)
+        throw new Error('$entriesPlaceholder does not exist');
     $entriesPlaceholder.style.display = "block";
 }
+// Swaps the page view between entry-form and entries  display: none;
+function viewSwap(string) {
+    if (!$entryFormView)
+        throw new Error('$entryFormView does not exist');
+    if (!$entriesView)
+        throw new Error('$entriesView does not exist');
+    if (string === "entries") {
+        $entryFormView.style.display = "none";
+        $entriesView.style.display = "block";
+    }
+    else if (string === "entry-form") {
+        $entryFormView.style.display = "block";
+        $entriesView.style.display = "none";
+    }
+    data.view = string;
+}
 $photoURL.addEventListener('input', changePhotoPreview);
-$entryForm.addEventListener('submit', submitForm);
+$entryFormView.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
     // Renders then appends each existing entry to the ul element
     if (data.entries) {
@@ -103,4 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
         toggleNoEntries();
     }
+});
+$codeJournalHeaderEntries.addEventListener('click', (event) => {
+    viewSwap("entries");
+    event.preventDefault();
 });
