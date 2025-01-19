@@ -138,11 +138,17 @@ function viewSwap(string: string) {
     $entriesView.style.display = "none";
   }
   data.view = string;
+  writeData(data)
+  console.log(data.view)
 }
 
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryFormView.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
+  // Shows the view which was displayed prior to page refresh
+  viewSwap(data.view)
+  console.log(data.view)
+
   // Renders then appends each existing entry to the ul element
   if (data.entries) {
     for (const entry of data.entries) {

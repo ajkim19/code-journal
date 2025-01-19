@@ -81,6 +81,8 @@ function submitForm(event) {
         throw new Error('$notes does not exist for submitForm()');
     if (!$photoPreview)
         throw new Error('$photoPreview does not exist for submitForm()');
+    if (!$entriesList)
+        throw new Error('$entriesList does not exist for');
     event.preventDefault();
     // Creates a new Entry and prepending it the entries array in data
     const entry = {
@@ -89,7 +91,23 @@ function submitForm(event) {
         notes: $notes.value,
         entryId: data.nextEntryId
     };
+    // Renders a DOM tree for the newly submitted entry object
+    renderEntry(entry);
+    // Prepends the new DOM tree to the unordered list.
     data.entries.unshift(entry);
+    // Shows the ”entries” view
+    viewSwap("entries");
+    // Conditionally uses the toggleNoEntries function as needed to remove the no entries text
+    if (data.entries) {
+        for (const entry of data.entries) {
+            const dataEntry = renderEntry(entry);
+            $entriesList.append(dataEntry);
+        }
+        // Displays a placeholder if there are no entries to render
+    }
+    else {
+        toggleNoEntries();
+    }
     data.nextEntryId++;
     writeData(data);
     // Resets the application to its original state
@@ -120,10 +138,15 @@ function viewSwap(string) {
         $entriesView.style.display = "none";
     }
     data.view = string;
+    writeData(data);
+    console.log(data.view);
 }
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryFormView.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
+    // Shows the view which was displayed prior to page refresh
+    viewSwap(data.view);
+    console.log(data.view);
     // Renders then appends each existing entry to the ul element
     if (data.entries) {
         for (const entry of data.entries) {
