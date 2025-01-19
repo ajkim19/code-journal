@@ -20,6 +20,9 @@ if (!$notes) throw new Error('$notes does not exist');
 const $entriesList = document.querySelector<HTMLTextAreaElement>('.entries-list');
 if (!$entriesList) throw new Error('$entriesList does not exist');
 
+const $viewEntries = document.get
+if (!$viewEntries) throw new Error('$viewEntries does not exist');
+
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview(): void {
   if($photoURL && $photoPreview) {
@@ -90,6 +93,13 @@ function submitForm(event: Event): void {
 function toggleNoEntries(): void {
   const $entriesPlaceholder = document.querySelector(".entries-placeholder") as HTMLElement;
   $entriesPlaceholder.style.display = "block";
+}
+
+function viewSwap(string: string) {
+  if (string === "entries") {
+
+  } else if (string === "entry-form")
+  data.view = string
 }
 
 $photoURL.addEventListener('input', changePhotoPreview);

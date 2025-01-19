@@ -31,6 +31,30 @@
     </header>
     <main class="container">
       <div data-view="entry-form">
+        <form class="row entry-form">
+          <div class="row column-full">
+            <h1>New Entry</h1>
+          </div>
+          <div class="row column-half">
+            <img
+              class="photo-preview"
+              src="images/placeholder-image-square.jpg"
+              alt="Photo Preview" />
+          </div>
+          <div class="row column-half title-photoURL">
+            <label for="title">Title</label>
+            <input type="text" id="title" required/>
+            <label for="photo-url">Photo URL</label>
+            <input type="text" id="photo-url" required/>
+          </div>
+          <div class="row column-full notes-save">
+            <label for="notes">Notes</label><br />
+            <textarea name="notes" id="notes"></textarea><br />
+            <button class="save-btn">SAVE</button>
+          </div>
+        </form>
+      </div>
+      <div data-view="entries" class="entries hidden">
         <ul class="entries-list">
           <p class="entries-placeholder">No entries have been recorded.</p>
           <!-- <li class="row entry-item">
@@ -70,30 +94,7 @@
             </div>
           </li> -->
         </ul>
-        <form class="row entry-form">
-          <div class="row column-full">
-            <h1>New Entry</h1>
-          </div>
-          <div class="row column-half">
-            <img
-              class="photo-preview"
-              src="images/placeholder-image-square.jpg"
-              alt="Photo Preview" />
-          </div>
-          <div class="row column-half title-photoURL">
-            <label for="title">Title</label>
-            <input type="text" id="title" required/>
-            <label for="photo-url">Photo URL</label>
-            <input type="text" id="photo-url" required/>
-          </div>
-          <div class="row column-full notes-save">
-            <label for="notes">Notes</label><br />
-            <textarea name="notes" id="notes"></textarea><br />
-            <button class="save-btn">SAVE</button>
-          </div>
-        </form>
       </div>
-      <div data-view="entries" class="hidden"></div>
     </main>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
