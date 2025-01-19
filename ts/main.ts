@@ -87,8 +87,26 @@ function submitForm(event: Event): void {
     notes: $notes.value,
     entryId: data.nextEntryId
   }
+  // Renders a DOM tree for the newly submitted entry object
   renderEntry(entry);
+
+  // Prepends the new DOM tree to the unordered list.
   data.entries.unshift(entry);
+
+  // Shows the ”entries” view
+  viewSwap("entries");
+
+  // Conditionally uses the toggleNoEntries function as needed to remove the no entries text
+  if (data.entries) {
+    for (const entry of data.entries) {
+      const dataEntry = renderEntry(entry);
+      $entriesList.append(dataEntry);
+    }
+  // Displays a placeholder if there are no entries to render
+  } else {
+    toggleNoEntries()
+  }
+
   data.nextEntryId++
   writeData(data)
 
