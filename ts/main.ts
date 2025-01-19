@@ -11,8 +11,8 @@ const $photoURL = document.querySelector<HTMLInputElement>("#photo-url");
 if (!$photoURL) throw new Error("$photoURL does not exist");
 const $photoPreview = document.querySelector<HTMLImageElement>(".photo-preview");
 if (!$photoPreview) throw new Error("$photoPreview does not exist");
-const $entryForm = document.querySelector<HTMLInputElement>('form.entry-form');
-if (!$entryForm) throw new Error('$entryForm does not exist');
+const $newEntryForm = document.querySelector<HTMLInputElement>('.new-entry-form');
+if (!$newEntryForm) throw new Error('$newEntryForm does not exist');
 const $title = document.querySelector<HTMLInputElement>('#title');
 if (!$title) throw new Error('$title does not exist');
 const $notes = document.querySelector<HTMLTextAreaElement>('#notes');
@@ -20,8 +20,10 @@ if (!$notes) throw new Error('$notes does not exist');
 const $entriesList = document.querySelector<HTMLTextAreaElement>('.entries-list');
 if (!$entriesList) throw new Error('$entriesList does not exist');
 
-const $viewEntries = document.get
-if (!$viewEntries) throw new Error('$viewEntries does not exist');
+const $entries = document.querySelector<HTMLDivElement>(".entries")
+if (!$entries) throw new Error('$entries does not exist');
+const $entryForm = document.querySelector<HTMLDivElement>(".entry-form")
+if (!$entryForm) throw new Error('$entryForm does not exist');
 
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview(): void {
@@ -91,15 +93,20 @@ function submitForm(event: Event): void {
 }
 
 function toggleNoEntries(): void {
-  const $entriesPlaceholder = document.querySelector(".entries-placeholder") as HTMLElement;
+  const $entriesPlaceholder = document.querySelector<HTMLElement>(".entries-placeholder");
+  if (!$entriesPlaceholder) throw new Error('$entriesPlaceholder does not exist');
   $entriesPlaceholder.style.display = "block";
 }
 
 function viewSwap(string: string) {
+  if (!$entryForm) throw new Error('$entryForm does not exist');
+  if (!$entries) throw new Error('$entries does not exist');
   if (string === "entries") {
-
-  } else if (string === "entry-form")
-  data.view = string
+    $entries.style.display = "block";
+  } else if (string === "entry-form") {
+    $entryForm.style.display = "block";
+  }
+  data.view = string;
 }
 
 $photoURL.addEventListener('input', changePhotoPreview);
