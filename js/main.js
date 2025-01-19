@@ -25,6 +25,9 @@ if (!$entriesList)
 const $entriesView = document.querySelector(".entries-view");
 if (!$entriesView)
     throw new Error('$entriesView does not exist');
+const $newBtn = document.querySelector(".new-btn");
+if (!$newBtn)
+    throw new Error('$newBtn does not exist');
 const $codeJournalHeaderEntries = document.querySelector("#code-journal-header-entries");
 if (!$codeJournalHeaderEntries)
     throw new Error('$codeJournalHeaderEntries does not exist');
@@ -135,5 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 $codeJournalHeaderEntries.addEventListener('click', (event) => {
     viewSwap("entries");
+    event.preventDefault();
+});
+$newBtn.addEventListener('click', (event) => {
+    viewSwap("entry-form");
     event.preventDefault();
 });

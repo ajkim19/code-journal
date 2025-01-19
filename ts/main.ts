@@ -25,6 +25,8 @@ if (!$entriesList) throw new Error('$entriesList does not exist');
 // Selects the elements of entries
 const $entriesView = document.querySelector<HTMLDivElement>(".entries-view")
 if (!$entriesView) throw new Error('$entriesView does not exist');
+const $newBtn = document.querySelector<HTMLDivElement>(".new-btn")
+if (!$newBtn) throw new Error('$newBtn does not exist');
 const $codeJournalHeaderEntries = document.querySelector<HTMLAnchorElement>("#code-journal-header-entries")
 if (!$codeJournalHeaderEntries) throw new Error('$codeJournalHeaderEntries does not exist');
 
@@ -134,5 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 $codeJournalHeaderEntries.addEventListener('click', (event: Event) => {
   viewSwap("entries");
+  event.preventDefault();
+});
+
+$newBtn.addEventListener('click', (event: Event) => {
+  viewSwap("entry-form");
   event.preventDefault();
 });
