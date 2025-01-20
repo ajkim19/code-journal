@@ -176,6 +176,8 @@ $newBtn.addEventListener('click', (event: Event) => {
 
 $entriesList.addEventListener('click', (event: Event) => {
   viewSwap("entry-form")
+
+  // Find the entry object in the data.entries array whose id matches the data-entry-id
   const eventTarget = event.target as HTMLElement;
   if (eventTarget.classList.contains("fa-pen")) {
     const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
@@ -185,4 +187,10 @@ $entriesList.addEventListener('click', (event: Event) => {
       }
     }
   }
+  // Pre-populates the entry form with the clicked entry's values
+  $title.value = data.editing.title;
+  $photoURL.value = data.editing.photoURL;
+  $notes.value = data.editing.notes;
+
+
 })
