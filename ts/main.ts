@@ -174,6 +174,10 @@ $newBtn.addEventListener('click', (event: Event) => {
   event.preventDefault();
 });
 
-$entriesList.addEventListener('click', (event.Event) => {
-  if (event.target.getAttribute("data-entry-id")
+$entriesList.addEventListener('click', (event: Event) => {
+  viewSwap("entry-form")
+  const eventTarget = event.target as HTMLElement;
+  if (eventTarget.classList.contains("fa-pen")) {
+    console.log(event.target)
+  }
 })
