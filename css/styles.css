@@ -1,18 +1,48 @@
 header {
+  height: 64px;
+  margin-bottom: 18px;
   color: white;
   background-color: #562b81;
+}
+
+h2,
+p,
+label,
+input,
+textarea {
+  width: 100%;
 }
 
 h1,
 h2,
 label {
-  width: 100%;
-  font-family: 'Proza Libre', serif;
   font-weight: 600;
 }
 
+h1 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 40px;
+}
+
 h2 {
+  font-size: 30px;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+h3 {
+  margin-right: 18px;
+  font-size: 20px;
   font-weight: 400;
+}
+
+p,
+a {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 26px;
+  line-height: 30.5px;
 }
 
 img {
@@ -36,7 +66,7 @@ label {
 input,
 textarea {
   font-size: 16px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid #b6b6b6;
 }
 
@@ -53,6 +83,34 @@ textarea:focus {
   outline: 4px solid #562b81;
 }
 
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.code-journal-header {
+  height: 64px;
+}
+
+#code-journal-header-title {
+  width: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 18px;
+  font-size: 26px;
+}
+
+#code-journal-header-entries {
+  width: auto;
+  margin: auto 0;
+  color: white;
+  text-decoration: none;
+}
+
+.entry-form-view {
+  display: none;
+}
+
 .save-btn {
   width: auto;
   padding: 0.5em 1em;
@@ -60,7 +118,7 @@ textarea:focus {
   font-size: 16px;
   color: white;
   background-color: #562b81;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 0;
 }
 
@@ -70,4 +128,53 @@ textarea:focus {
 
 .notes-save {
   justify-content: end;
+}
+
+.entries-view {
+  display: block;
+}
+
+.entries-header {
+  justify-content: space-between;
+}
+
+.entries-header-title {
+  margin: auto 0;
+}
+
+.new-btn {
+  height: 32px;
+  width: auto;
+  padding-top: 2px;
+  padding-bottom: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: auto 0;
+  font-size: 16px;
+  text-decoration: none;
+  color: white;
+  background-color: #562b81;
+  border-radius: 6px;
+  border: 0;
+  vertical-align: text-bottom;
+}
+
+.entries-placeholder {
+  display: none;
+  text-align: center;
+}
+
+.entry-item {
+  margin-bottom: 30px;
+}
+
+.entry-title-notes {
+  box-sizing: border-box;
+  padding-left: 25px;
+}
+
+@media screen and (width >= 768px) {
+  img {
+    aspect-ratio: 1;
+  }
 }
