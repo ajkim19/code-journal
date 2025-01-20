@@ -91,18 +91,36 @@ function submitForm(event: Event): void {
 
   event.preventDefault();
 
-  // Creates a new Entry and prepending it the entries array in data
-  const entry: Entry = {
-    title: $title.value,
-    photoURL: $photoURL.value,
-    notes: $notes.value,
-    entryId: data.nextEntryId
-  }
+  // Displays entries is there is no entry to edit
+  if (!data.editing) {
+    // Creates a new Entry and prepending it the entries array in data
+    const entry: Entry = {
+      title: $title.value,
+      photoURL: $photoURL.value,
+      notes: $notes.value,
+      entryId: data.nextEntryId
+    }
 
-  // Appends new entry to data.entries and saved in local storage
-  data.entries.push(entry);
-  data.nextEntryId++
-  writeData(data)
+    // Appends new entry to data.entries and saved in local storage
+    data.entries.push(entry);
+    data.nextEntryId++
+    writeData(data)
+
+  } else {
+    const editedEntry: Entry = {
+      title: $title.value,
+      photoURL: $photoURL.value,
+      notes: $notes.value,
+      entryId: data.editing.entryId
+    }
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId === data.editing.entryId) {
+        data.entries.splice(i, 1, editedEntry)
+      }
+    }
+    writeData(data)
+    data.editing = null
+  }
 
   if (data.entries) {
     $entriesList.innerHTML = "";
@@ -116,18 +134,15 @@ function submitForm(event: Event): void {
   } else {
     toggleNoEntries()
   }
-
   // Shows the ”entries” view
   viewSwap("entries");
 
-  if (!data.editing) {
-    // Resets the application to its original state
-    $entryFormHeader.textContent = "Edit Entry";
-    $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
-    $title.value = "";
-    $photoURL.value = "";
-    $notes.value = "";
-  }
+  // Resets the application to its original state
+  $entryFormHeader.textContent = "Edit Entry";
+  $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
+  $title.value = "";
+  $photoURL.value = "";
+  $notes.value = "";
 }
 
 // Adds a placeholder if no entries exist
@@ -181,15 +196,14 @@ $newBtn.addEventListener('click', (event: Event) => {
 });
 
 $entriesList.addEventListener('click', (event: Event) => {
-  viewSwap("entry-form")
-
   // Find the entry object in the data.entries array whose id matches the data-entry-id
   const eventTarget = event.target as HTMLElement;
   if (eventTarget.classList.contains("fa-pen")) {
+    viewSwap("entry-form")
     const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
     for (const entry of data.entries) {
-      if (entry.entryId.toLocaleString() === entryID) {
-        data.editing = entry
+      if (entry.entryId === Number(entryID)) {
+        data.editing = entry;
       }
     }
   }

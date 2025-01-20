@@ -92,18 +92,38 @@ function submitForm(event) {
         throw new Error('$photoPreview does not exist for submitForm()');
     if (!$entriesList)
         throw new Error('$entriesList does not exist for');
+    if (!$entryFormHeader)
+        throw new Error('$entryFormHeader does not exist for');
     event.preventDefault();
-    // Creates a new Entry and prepending it the entries array in data
-    const entry = {
-        title: $title.value,
-        photoURL: $photoURL.value,
-        notes: $notes.value,
-        entryId: data.nextEntryId
-    };
-    // Appends new entry to data.entries and saved in local storage
-    data.entries.push(entry);
-    data.nextEntryId++;
-    writeData(data);
+    // Displays entries is there is no entry to edit
+    if (!data.editing) {
+        // Creates a new Entry and prepending it the entries array in data
+        const entry = {
+            title: $title.value,
+            photoURL: $photoURL.value,
+            notes: $notes.value,
+            entryId: data.nextEntryId
+        };
+        // Appends new entry to data.entries and saved in local storage
+        data.entries.push(entry);
+        data.nextEntryId++;
+        writeData(data);
+    }
+    else {
+        const editedEntry = {
+            title: $title.value,
+            photoURL: $photoURL.value,
+            notes: $notes.value,
+            entryId: data.editing.entryId
+        };
+        for (let i = 0; i < data.entries.length; i++) {
+            if (data.entries[i].entryId === data.editing.entryId) {
+                data.entries.splice(i, 1, editedEntry);
+            }
+        }
+        writeData(data);
+        data.editing = null;
+    }
     if (data.entries) {
         $entriesList.innerHTML = "";
         for (const entry of data.entries) {
@@ -120,6 +140,7 @@ function submitForm(event) {
     // Shows the ”entries” view
     viewSwap("entries");
     // Resets the application to its original state
+    $entryFormHeader.textContent = "Edit Entry";
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
     $title.value = "";
     $photoURL.value = "";
@@ -175,13 +196,13 @@ $newBtn.addEventListener('click', (event) => {
     event.preventDefault();
 });
 $entriesList.addEventListener('click', (event) => {
-    viewSwap("entry-form");
     // Find the entry object in the data.entries array whose id matches the data-entry-id
     const eventTarget = event.target;
     if (eventTarget.classList.contains("fa-pen")) {
+        viewSwap("entry-form");
         const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
         for (const entry of data.entries) {
-            if (entry.entryId.toLocaleString() === entryID) {
+            if (entry.entryId === Number(entryID)) {
                 data.editing = entry;
             }
         }
