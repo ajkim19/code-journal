@@ -87,6 +87,7 @@ function submitForm(event: Event): void {
   if (!$notes) throw new Error('$notes does not exist for submitForm()');
   if (!$photoPreview) throw new Error('$photoPreview does not exist for submitForm()');
   if (!$entriesList) throw new Error('$entriesList does not exist for');
+  if (!$entryFormHeader) throw new Error('$entryFormHeader does not exist for');
 
   event.preventDefault();
 
@@ -119,11 +120,14 @@ function submitForm(event: Event): void {
   // Shows the ”entries” view
   viewSwap("entries");
 
-  // Resets the application to its original state
-  $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
-  $title.value = "";
-  $photoURL.value = "";
-  $notes.value = "";
+  if (!data.editing) {
+    // Resets the application to its original state
+    $entryFormHeader.textContent = "Edit Entry";
+    $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
+    $title.value = "";
+    $photoURL.value = "";
+    $notes.value = "";
+  }
 }
 
 // Adds a placeholder if no entries exist
