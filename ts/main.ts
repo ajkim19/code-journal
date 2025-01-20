@@ -49,13 +49,18 @@ function renderEntry(entry: Entry): HTMLLIElement {
   $imgEntryImage.setAttribute("src", entry.photoURL);
   $divColumnHalf1.append($imgEntryImage);
   const $divColumnHalf2 = document.createElement("div");
-  $divColumnHalf2.className = "column-half entry-title-notes";
+  $divColumnHalf2.className = "row column-half entry-title-edit-notes";
+  const $divColumnFull = document.createElement("div");
+  $divColumnFull.className = "row column-full entry-title-edit";
   const $h2EntryTitle = document.createElement("h2");
   $h2EntryTitle.className = "entry-title";
   $h2EntryTitle.textContent = entry.title;
+  const $iEdit = document.createElement("i");
+  $iEdit.className = "fa-solid fa-pen";
+  $divColumnFull.append($h2EntryTitle, $iEdit)
   const $divEntryNotes = document.createElement("div");
   $divEntryNotes.className = "entry-notes";
-  let notesString = "<p>"
+  let notesString = "<p>";
   if (entry.notes) {
     for (let i = 0; i < entry.notes.length; i++) {
       if (entry.notes[i] === "\n") {
@@ -67,7 +72,7 @@ function renderEntry(entry: Entry): HTMLLIElement {
   }
   notesString += "</p>"
   $divEntryNotes.innerHTML = notesString;
-  $divColumnHalf2.append($h2EntryTitle, $divEntryNotes);
+  $divColumnHalf2.append($divColumnFull, $divEntryNotes);
   $liEntryItem.append($divColumnHalf1, $divColumnHalf2);
   return $liEntryItem;
 }
