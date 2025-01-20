@@ -41,6 +41,7 @@ function changePhotoPreview() {
 function renderEntry(entry) {
     const $liEntryItem = document.createElement("li");
     $liEntryItem.className = "row entry-item";
+    $liEntryItem.setAttribute("data-entry-id", entry.entryId.toLocaleString());
     const $divColumnHalf1 = document.createElement("div");
     $divColumnHalf1.className = "column-half";
     const $imgEntryImage = document.createElement("img");
@@ -48,10 +49,15 @@ function renderEntry(entry) {
     $imgEntryImage.setAttribute("src", entry.photoURL);
     $divColumnHalf1.append($imgEntryImage);
     const $divColumnHalf2 = document.createElement("div");
-    $divColumnHalf2.className = "column-half entry-title-notes";
+    $divColumnHalf2.className = "row column-half entry-title-edit-notes";
+    const $divColumnFull = document.createElement("div");
+    $divColumnFull.className = "row column-full entry-title-edit";
     const $h2EntryTitle = document.createElement("h2");
     $h2EntryTitle.className = "entry-title";
     $h2EntryTitle.textContent = entry.title;
+    const $iEdit = document.createElement("i");
+    $iEdit.className = "fa-solid fa-pen";
+    $divColumnFull.append($h2EntryTitle, $iEdit);
     const $divEntryNotes = document.createElement("div");
     $divEntryNotes.className = "entry-notes";
     let notesString = "<p>";
@@ -67,7 +73,7 @@ function renderEntry(entry) {
     }
     notesString += "</p>";
     $divEntryNotes.innerHTML = notesString;
-    $divColumnHalf2.append($h2EntryTitle, $divEntryNotes);
+    $divColumnHalf2.append($divColumnFull, $divEntryNotes);
     $liEntryItem.append($divColumnHalf1, $divColumnHalf2);
     return $liEntryItem;
 }
@@ -164,4 +170,16 @@ $codeJournalHeaderEntries.addEventListener('click', (event) => {
 $newBtn.addEventListener('click', (event) => {
     viewSwap("entry-form");
     event.preventDefault();
+});
+$entriesList.addEventListener('click', (event) => {
+    viewSwap("entry-form");
+    const eventTarget = event.target;
+    if (eventTarget.classList.contains("fa-pen")) {
+        const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
+        for (const entry of data.entries) {
+            if (entry.entryId.toLocaleString() === entryID) {
+                data.editing = entry;
+            }
+        }
+    }
 });

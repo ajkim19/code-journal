@@ -178,6 +178,11 @@ $entriesList.addEventListener('click', (event: Event) => {
   viewSwap("entry-form")
   const eventTarget = event.target as HTMLElement;
   if (eventTarget.classList.contains("fa-pen")) {
-    console.log(event.target)
+    const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
+    for (const entry of data.entries) {
+      if (entry.entryId.toLocaleString() === entryID) {
+        data.editing = entry
+      }
+    }
   }
 })
