@@ -9,6 +9,8 @@ interface Entry {
 // Selects the elements of the elements of entry-form
 const $entryFormView = document.querySelector<HTMLDivElement>(".entry-form-view")
 if (!$entryFormView) throw new Error('$entryFormView does not exist');
+const $entryFormHeader = document.querySelector<HTMLDivElement>(".entry-form-header")
+if (!$entryFormHeader) throw new Error('$entryFormHeader does not exist');
 const $photoURL = document.querySelector<HTMLInputElement>("#photo-url");
 if (!$photoURL) throw new Error("$photoURL does not exist");
 const $photoPreview = document.querySelector<HTMLImageElement>(".photo-preview");
