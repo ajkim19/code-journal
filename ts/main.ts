@@ -173,3 +173,7 @@ $newBtn.addEventListener('click', (event: Event) => {
   viewSwap("entry-form");
   event.preventDefault();
 });
+
+$entriesList.addEventListener('click', (event.Event) => {
+  if (event.target.getAttribute("data-entry-id")
+})
