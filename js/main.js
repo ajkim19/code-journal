@@ -3,6 +3,9 @@
 const $entryFormView = document.querySelector(".entry-form-view");
 if (!$entryFormView)
     throw new Error('$entryFormView does not exist');
+const $entryFormHeader = document.querySelector(".entry-form-header");
+if (!$entryFormHeader)
+    throw new Error('$entryFormHeader does not exist');
 const $photoURL = document.querySelector("#photo-url");
 if (!$photoURL)
     throw new Error("$photoURL does not exist");
@@ -173,6 +176,7 @@ $newBtn.addEventListener('click', (event) => {
 });
 $entriesList.addEventListener('click', (event) => {
     viewSwap("entry-form");
+    // Find the entry object in the data.entries array whose id matches the data-entry-id
     const eventTarget = event.target;
     if (eventTarget.classList.contains("fa-pen")) {
         const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
@@ -182,4 +186,11 @@ $entriesList.addEventListener('click', (event) => {
             }
         }
     }
+    // Pre-populates the entry form with the clicked entry's values
+    $title.value = data.editing.title;
+    $photoURL.value = data.editing.photoURL;
+    $photoPreview.setAttribute('src', data.editing.photoURL);
+    $notes.value = data.editing.notes;
+    // Updates the title of the entry-form view
+    $entryFormHeader.textContent = "Edit Entry";
 });

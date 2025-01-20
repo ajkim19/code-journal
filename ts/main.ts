@@ -192,7 +192,9 @@ $entriesList.addEventListener('click', (event: Event) => {
   // Pre-populates the entry form with the clicked entry's values
   $title.value = data.editing.title;
   $photoURL.value = data.editing.photoURL;
+  $photoPreview.setAttribute('src', data.editing.photoURL);
   $notes.value = data.editing.notes;
 
-
+  // Updates the title of the entry-form view
+  $entryFormHeader.textContent = "Edit Entry";
 })
