@@ -42,6 +42,7 @@ function changePhotoPreview(): void {
 function renderEntry(entry: Entry): HTMLLIElement {
   const $liEntryItem = document.createElement("li");
   $liEntryItem.className = "row entry-item";
+  $liEntryItem.setAttribute("data-entry-id", entry.entryId.toLocaleString())
   const $divColumnHalf1 = document.createElement("div");
   $divColumnHalf1.className = "column-half";
   const $imgEntryImage = document.createElement("img");
