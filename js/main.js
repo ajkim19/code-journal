@@ -122,6 +122,7 @@ function submitForm(event) {
             }
         }
         writeData(data);
+        $entryFormHeader.textContent = "New Entry";
         data.editing = null;
     }
     if (data.entries) {
@@ -140,7 +141,7 @@ function submitForm(event) {
     // Shows the ”entries” view
     viewSwap("entries");
     // Resets the application to its original state
-    $entryFormHeader.textContent = "Edit Entry";
+    $entryFormHeader.textContent = "New Entry";
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
     $title.value = "";
     $photoURL.value = "";
@@ -168,7 +169,6 @@ function viewSwap(string) {
         $entriesView.style.display = "none";
     }
     data.view = string;
-    writeData(data);
 }
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryFormView.addEventListener('submit', submitForm);
@@ -192,10 +192,23 @@ $codeJournalHeaderEntries.addEventListener('click', (event) => {
     event.preventDefault();
 });
 $newBtn.addEventListener('click', (event) => {
-    viewSwap("entry-form");
     event.preventDefault();
+    viewSwap("entry-form");
+    $entryFormHeader.textContent = "New Entry";
+    $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
+    $title.value = "";
+    $photoURL.value = "";
+    $notes.value = "";
 });
 $entriesList.addEventListener('click', (event) => {
+    if (!$title)
+        throw new Error('$title does not exist for submitForm()');
+    if (!$photoURL)
+        throw new Error('$photoURL does not exist for submitForm()');
+    if (!$notes)
+        throw new Error('$notes does not exist for submitForm()');
+    if (!$photoPreview)
+        throw new Error('$photoPreview does not exist for submitForm()');
     // Find the entry object in the data.entries array whose id matches the data-entry-id
     const eventTarget = event.target;
     if (eventTarget.classList.contains("fa-pen")) {
