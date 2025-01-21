@@ -110,11 +110,24 @@ ul {
   display: none;
 }
 
+.delete-save {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.delete-entry {
+  width: auto;
+  font-family: sans-serif;
+  font-size: 16px;
+  color: red;
+  align-self: start;
+}
+
 .save-btn {
   width: auto;
-  padding: 0.5em 1em;
+  padding: 6px 16px;
   margin-bottom: 24px;
-  font-size: 16px;
+  font-size: 18px;
   color: white;
   background-color: #562b81;
   border-radius: 5px;
