@@ -3,6 +3,9 @@
 const $entryFormView = document.querySelector(".entry-form-view");
 if (!$entryFormView)
     throw new Error('$entryFormView does not exist');
+const $entryFormHeader = document.querySelector(".entry-form-header");
+if (!$entryFormHeader)
+    throw new Error('$entryFormHeader does not exist');
 const $photoURL = document.querySelector("#photo-url");
 if (!$photoURL)
     throw new Error("$photoURL does not exist");
@@ -41,6 +44,7 @@ function changePhotoPreview() {
 function renderEntry(entry) {
     const $liEntryItem = document.createElement("li");
     $liEntryItem.className = "row entry-item";
+    $liEntryItem.setAttribute("data-entry-id", entry.entryId.toLocaleString());
     const $divColumnHalf1 = document.createElement("div");
     $divColumnHalf1.className = "column-half";
     const $imgEntryImage = document.createElement("img");
@@ -48,10 +52,15 @@ function renderEntry(entry) {
     $imgEntryImage.setAttribute("src", entry.photoURL);
     $divColumnHalf1.append($imgEntryImage);
     const $divColumnHalf2 = document.createElement("div");
-    $divColumnHalf2.className = "column-half entry-title-notes";
+    $divColumnHalf2.className = "row column-half entry-title-edit-notes";
+    const $divColumnFull = document.createElement("div");
+    $divColumnFull.className = "row column-full entry-title-edit";
     const $h2EntryTitle = document.createElement("h2");
     $h2EntryTitle.className = "entry-title";
     $h2EntryTitle.textContent = entry.title;
+    const $iEdit = document.createElement("i");
+    $iEdit.className = "fa-solid fa-pen";
+    $divColumnFull.append($h2EntryTitle, $iEdit);
     const $divEntryNotes = document.createElement("div");
     $divEntryNotes.className = "entry-notes";
     let notesString = "<p>";
@@ -67,7 +76,7 @@ function renderEntry(entry) {
     }
     notesString += "</p>";
     $divEntryNotes.innerHTML = notesString;
-    $divColumnHalf2.append($h2EntryTitle, $divEntryNotes);
+    $divColumnHalf2.append($divColumnFull, $divEntryNotes);
     $liEntryItem.append($divColumnHalf1, $divColumnHalf2);
     return $liEntryItem;
 }
@@ -83,18 +92,39 @@ function submitForm(event) {
         throw new Error('$photoPreview does not exist for submitForm()');
     if (!$entriesList)
         throw new Error('$entriesList does not exist for');
+    if (!$entryFormHeader)
+        throw new Error('$entryFormHeader does not exist for');
     event.preventDefault();
-    // Creates a new Entry and prepending it the entries array in data
-    const entry = {
-        title: $title.value,
-        photoURL: $photoURL.value,
-        notes: $notes.value,
-        entryId: data.nextEntryId
-    };
-    // Appends new entry to data.entries and saved in local storage
-    data.entries.push(entry);
-    data.nextEntryId++;
-    writeData(data);
+    // Displays entries is there is no entry to edit
+    if (!data.editing) {
+        // Creates a new Entry and prepending it the entries array in data
+        const entry = {
+            title: $title.value,
+            photoURL: $photoURL.value,
+            notes: $notes.value,
+            entryId: data.nextEntryId
+        };
+        // Appends new entry to data.entries and saved in local storage
+        data.entries.push(entry);
+        data.nextEntryId++;
+        writeData(data);
+    }
+    else {
+        const editedEntry = {
+            title: $title.value,
+            photoURL: $photoURL.value,
+            notes: $notes.value,
+            entryId: data.editing.entryId
+        };
+        for (let i = 0; i < data.entries.length; i++) {
+            if (data.entries[i].entryId === data.editing.entryId) {
+                data.entries.splice(i, 1, editedEntry);
+            }
+        }
+        writeData(data);
+        $entryFormHeader.textContent = "New Entry";
+        data.editing = null;
+    }
     if (data.entries) {
         $entriesList.innerHTML = "";
         for (const entry of data.entries) {
@@ -111,6 +141,7 @@ function submitForm(event) {
     // Shows the ”entries” view
     viewSwap("entries");
     // Resets the application to its original state
+    $entryFormHeader.textContent = "New Entry";
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
     $title.value = "";
     $photoURL.value = "";
@@ -138,7 +169,6 @@ function viewSwap(string) {
         $entriesView.style.display = "none";
     }
     data.view = string;
-    writeData(data);
 }
 $photoURL.addEventListener('input', changePhotoPreview);
 $entryFormView.addEventListener('submit', submitForm);
@@ -162,6 +192,39 @@ $codeJournalHeaderEntries.addEventListener('click', (event) => {
     event.preventDefault();
 });
 $newBtn.addEventListener('click', (event) => {
-    viewSwap("entry-form");
     event.preventDefault();
+    viewSwap("entry-form");
+    $entryFormHeader.textContent = "New Entry";
+    $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
+    $title.value = "";
+    $photoURL.value = "";
+    $notes.value = "";
+});
+$entriesList.addEventListener('click', (event) => {
+    if (!$title)
+        throw new Error('$title does not exist for submitForm()');
+    if (!$photoURL)
+        throw new Error('$photoURL does not exist for submitForm()');
+    if (!$notes)
+        throw new Error('$notes does not exist for submitForm()');
+    if (!$photoPreview)
+        throw new Error('$photoPreview does not exist for submitForm()');
+    // Find the entry object in the data.entries array whose id matches the data-entry-id
+    const eventTarget = event.target;
+    if (eventTarget.classList.contains("fa-pen")) {
+        viewSwap("entry-form");
+        const entryID = eventTarget.closest("li")?.getAttribute("data-entry-id");
+        for (const entry of data.entries) {
+            if (entry.entryId === Number(entryID)) {
+                data.editing = entry;
+            }
+        }
+    }
+    // Pre-populates the entry form with the clicked entry's values
+    $title.value = data.editing.title;
+    $photoURL.value = data.editing.photoURL;
+    $photoPreview.setAttribute('src', data.editing.photoURL);
+    $notes.value = data.editing.notes;
+    // Updates the title of the entry-form view
+    $entryFormHeader.textContent = "Edit Entry";
 });

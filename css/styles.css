@@ -5,7 +5,6 @@ header {
   background-color: #562b81;
 }
 
-h2,
 p,
 label,
 input,
@@ -26,7 +25,7 @@ h1 {
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 28px;
   margin-top: 0;
   margin-bottom: 12px;
 }
@@ -168,9 +167,26 @@ ul {
   margin-bottom: 30px;
 }
 
-.entry-title-notes {
+.entry-title-edit {
+  height: 56px;
+  padding: 0;
+  justify-content: space-between;
+}
+
+.entry-title {
+  height: 38px
+}
+
+.fa-pen {
+  color: #562b81;
+  font-size: 28px;
+}
+
+.entry-title-edit-notes {
   box-sizing: border-box;
   padding-left: 25px;
+  flex-direction: column;
+  align-items: start;
 }
 
 @media screen and (width >= 768px) {
