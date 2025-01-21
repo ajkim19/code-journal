@@ -34,6 +34,18 @@ if (!$newBtn)
 const $codeJournalHeaderEntries = document.querySelector("#code-journal-header-entries");
 if (!$codeJournalHeaderEntries)
     throw new Error('$codeJournalHeaderEntries does not exist');
+const $deleteEntryBtn = document.querySelector(".delete-entry-btn");
+if (!$deleteEntryBtn)
+    throw new Error('$deleteEntryBtn does not exist');
+const $deleteModal = document.querySelector(".delete-modal");
+if (!$deleteModal)
+    throw new Error('$deleteModal does not exist');
+const $deleteModalCancelBtn = document.querySelector(".delete-modal-cancel-btn");
+if (!$deleteModalCancelBtn)
+    throw new Error('$deleteModalCancelBtn does not exist');
+const $deleteModalConfirmBtn = document.querySelector(".delete-entry-btn");
+if (!$deleteModalConfirmBtn)
+    throw new Error('$deleteModalConfirmBtn does not exist');
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview() {
     if ($photoURL && $photoPreview) {
@@ -228,3 +240,13 @@ $entriesList.addEventListener('click', (event) => {
     // Updates the title of the entry-form view
     $entryFormHeader.textContent = "Edit Entry";
 });
+$deleteEntryBtn.addEventListener("click", () => {
+    console.log("Showing delete modal");
+    $deleteModal.show();
+});
+// $deleteModalCancelBtn.addEventListener("click", () => {
+//   $deleteModal.close();
+// })
+// $deleteModalConfirmBtn.addEventListener("click", () => {
+//   $deleteModal.close();
+// })

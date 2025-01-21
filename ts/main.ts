@@ -31,7 +31,14 @@ const $newBtn = document.querySelector<HTMLDivElement>(".new-btn")
 if (!$newBtn) throw new Error('$newBtn does not exist');
 const $codeJournalHeaderEntries = document.querySelector<HTMLAnchorElement>("#code-journal-header-entries")
 if (!$codeJournalHeaderEntries) throw new Error('$codeJournalHeaderEntries does not exist');
-
+const $deleteEntryBtn = document.querySelector<HTMLAnchorElement>(".delete-entry-btn");
+if (!$deleteEntryBtn) throw new Error('$deleteEntryBtn does not exist');
+const $deleteModal = document.querySelector<HTMLDialogElement>(".delete-modal");
+if (!$deleteModal) throw new Error('$deleteModal does not exist');
+const $deleteModalCancelBtn = document.querySelector<HTMLButtonElement>(".delete-modal-cancel-btn");
+if (!$deleteModalCancelBtn) throw new Error('$deleteModalCancelBtn does not exist');
+const $deleteModalConfirmBtn = document.querySelector<HTMLButtonElement>(".delete-modal-confirm-btn");
+if (!$deleteModalConfirmBtn) throw new Error('$deleteModalConfirmBtn does not exist');
 
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview(): void {
@@ -224,4 +231,16 @@ $entriesList.addEventListener('click', (event: Event) => {
 
   // Updates the title of the entry-form view
   $entryFormHeader.textContent = "Edit Entry";
+})
+
+$deleteEntryBtn.addEventListener("click", () => {
+  $deleteModal.show();
+})
+
+$deleteModalCancelBtn.addEventListener("click", () => {
+  $deleteModal.close();
+})
+
+$deleteModalConfirmBtn.addEventListener("click", () => {
+  $deleteModal.close();
 })
