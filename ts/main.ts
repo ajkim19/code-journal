@@ -251,5 +251,20 @@ $deleteModalConfirmBtn.addEventListener("click", () => {
   $entryFormHeader.textContent = "New Entry";
   data.editing = null
 
+  if (data.entries) {
+    $entriesList.innerHTML = "";
+    for (const entry of data.entries) {
+      // Renders a DOM tree for the newly submitted entry object
+      const dataEntry = renderEntry(entry);
+      // Prepends the new DOM tree to the unordered list.
+      $entriesList.prepend(dataEntry);
+    }
+  // Displays a placeholder if there are no entries to render
+  } else {
+    toggleNoEntries()
+  }
+  // Shows the ”entries” view
+  viewSwap("entries");
+
   $deleteModal.close();
 })
