@@ -242,5 +242,14 @@ $deleteModalCancelBtn.addEventListener("click", () => {
 })
 
 $deleteModalConfirmBtn.addEventListener("click", () => {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      data.entries.splice(i, 1)
+    }
+  }
+  writeData(data)
+  $entryFormHeader.textContent = "New Entry";
+  data.editing = null
+
   $deleteModal.close();
 })
