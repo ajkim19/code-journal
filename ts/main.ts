@@ -15,7 +15,7 @@ const $photoURL = document.querySelector<HTMLInputElement>("#photo-url");
 if (!$photoURL) throw new Error("$photoURL does not exist");
 const $photoPreview = document.querySelector<HTMLImageElement>(".photo-preview");
 if (!$photoPreview) throw new Error("$photoPreview does not exist");
-const $newEntryForm = document.querySelector<HTMLInputElement>('.new-entry-form');
+const $newEntryForm = document.querySelector<HTMLFormElement>('.new-entry-form');
 if (!$newEntryForm) throw new Error('$newEntryForm does not exist');
 const $title = document.querySelector<HTMLInputElement>('#title');
 if (!$title) throw new Error('$title does not exist');
@@ -95,6 +95,7 @@ function submitForm(event: Event): void {
   if (!$photoPreview) throw new Error('$photoPreview does not exist for submitForm()');
   if (!$entriesList) throw new Error('$entriesList does not exist for');
   if (!$entryFormHeader) throw new Error('$entryFormHeader does not exist for');
+  if (!$deleteEntryBtn) throw new Error('$deleteEntryBtn does not exist for submitForm()');
 
   event.preventDefault();
 
@@ -125,9 +126,11 @@ function submitForm(event: Event): void {
         data.entries.splice(i, 1, editedEntry)
       }
     }
-    writeData(data)
     $entryFormHeader.textContent = "New Entry";
+    console.log("New Entry Button")
+    $deleteEntryBtn.style.opacity = "0";
     data.editing = null
+    writeData(data)
   }
 
   if (data.entries) {
@@ -147,6 +150,8 @@ function submitForm(event: Event): void {
 
   // Resets the application to its original state
   $entryFormHeader.textContent = "New Entry";
+  console.log("New Entry Button")
+  $deleteEntryBtn.style.opacity = "0";
   $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
   $title.value = "";
   $photoURL.value = "";
@@ -172,10 +177,12 @@ function viewSwap(string: string) {
     $entriesView.style.display = "none";
   }
   data.view = string;
+  writeData(data);
 }
 
+
 $photoURL.addEventListener('input', changePhotoPreview);
-$entryFormView.addEventListener('submit', submitForm);
+$newEntryForm.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
   // Shows the view which was displayed prior to page refresh
   viewSwap(data.view)
@@ -190,17 +197,19 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     toggleNoEntries()
   }
+  writeData(data)
 })
 
 $codeJournalHeaderEntries.addEventListener('click', (event: Event) => {
-  viewSwap("entries");
   event.preventDefault();
+  viewSwap("entries");
 });
 
 $newBtn.addEventListener('click', (event: Event) => {
   event.preventDefault();
   viewSwap("entry-form");
   $entryFormHeader.textContent = "New Entry";
+  $deleteEntryBtn.style.opacity = "0";
   $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
   $title.value = "";
   $photoURL.value = "";
@@ -212,6 +221,7 @@ $entriesList.addEventListener('click', (event: Event) => {
   if (!$photoURL) throw new Error('$photoURL does not exist for submitForm()');
   if (!$notes) throw new Error('$notes does not exist for submitForm()');
   if (!$photoPreview) throw new Error('$photoPreview does not exist for submitForm()');
+  if (!$deleteEntryBtn) throw new Error('$deleteEntryBtn does not exist for submitForm()');
   // Find the entry object in the data.entries array whose id matches the data-entry-id
   const eventTarget = event.target as HTMLElement;
   if (eventTarget.classList.contains("fa-pen")) {
@@ -231,10 +241,11 @@ $entriesList.addEventListener('click', (event: Event) => {
 
   // Updates the title of the entry-form view
   $entryFormHeader.textContent = "Edit Entry";
+  $deleteEntryBtn.style.opacity = "100";
 })
 
 $deleteEntryBtn.addEventListener("click", () => {
-  $deleteModal.show();
+  $deleteModal.showModal();
 })
 
 $deleteModalCancelBtn.addEventListener("click", () => {
@@ -242,6 +253,8 @@ $deleteModalCancelBtn.addEventListener("click", () => {
 })
 
 $deleteModalConfirmBtn.addEventListener("click", () => {
+  if (!$entryFormHeader) throw new Error('$entryFormHeader does not exist for submitForm()');
+  if (!$deleteEntryBtn) throw new Error('$deleteEntryBtn does not exist for submitForm()');
   for (let i = 0; i < data.entries.length; i++) {
     if (data.entries[i].entryId === data.editing.entryId) {
       data.entries.splice(i, 1)
@@ -249,6 +262,7 @@ $deleteModalConfirmBtn.addEventListener("click", () => {
   }
   writeData(data)
   $entryFormHeader.textContent = "New Entry";
+  $deleteEntryBtn.style.opacity = "0";
   data.editing = null
 
   if (data.entries) {

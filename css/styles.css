@@ -127,6 +127,7 @@ ul {
   background-color: white;
   border: 0;
   align-self: start;
+  opacity: 0;
 }
 
 .save-btn {
@@ -143,7 +144,7 @@ ul {
 
 .delete-modal {
   height: 150px;
-  margin-top: 275px;
+  margin-top: 450px;
   flex-direction: column;
   justify-content: space-between;
   border-radius: 5px;
