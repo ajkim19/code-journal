@@ -34,6 +34,18 @@ if (!$newBtn)
 const $codeJournalHeaderEntries = document.querySelector("#code-journal-header-entries");
 if (!$codeJournalHeaderEntries)
     throw new Error('$codeJournalHeaderEntries does not exist');
+const $deleteEntryBtn = document.querySelector(".delete-entry-btn");
+if (!$deleteEntryBtn)
+    throw new Error('$deleteEntryBtn does not exist');
+const $deleteModal = document.querySelector(".delete-modal");
+if (!$deleteModal)
+    throw new Error('$deleteModal does not exist');
+const $deleteModalCancelBtn = document.querySelector(".delete-modal-cancel-btn");
+if (!$deleteModalCancelBtn)
+    throw new Error('$deleteModalCancelBtn does not exist');
+const $deleteModalConfirmBtn = document.querySelector(".delete-modal-confirm-btn");
+if (!$deleteModalConfirmBtn)
+    throw new Error('$deleteModalConfirmBtn does not exist');
 // Changes the photo preview using the given photo URL input
 function changePhotoPreview() {
     if ($photoURL && $photoPreview) {
@@ -94,6 +106,8 @@ function submitForm(event) {
         throw new Error('$entriesList does not exist for');
     if (!$entryFormHeader)
         throw new Error('$entryFormHeader does not exist for');
+    if (!$deleteEntryBtn)
+        throw new Error('$deleteEntryBtn does not exist for submitForm()');
     event.preventDefault();
     // Displays entries is there is no entry to edit
     if (!data.editing) {
@@ -121,9 +135,11 @@ function submitForm(event) {
                 data.entries.splice(i, 1, editedEntry);
             }
         }
-        writeData(data);
         $entryFormHeader.textContent = "New Entry";
+        console.log("New Entry Button");
+        $deleteEntryBtn.style.opacity = "0";
         data.editing = null;
+        writeData(data);
     }
     if (data.entries) {
         $entriesList.innerHTML = "";
@@ -142,6 +158,8 @@ function submitForm(event) {
     viewSwap("entries");
     // Resets the application to its original state
     $entryFormHeader.textContent = "New Entry";
+    console.log("New Entry Button");
+    $deleteEntryBtn.style.opacity = "0";
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
     $title.value = "";
     $photoURL.value = "";
@@ -169,9 +187,10 @@ function viewSwap(string) {
         $entriesView.style.display = "none";
     }
     data.view = string;
+    writeData(data);
 }
 $photoURL.addEventListener('input', changePhotoPreview);
-$entryFormView.addEventListener('submit', submitForm);
+$newEntryForm.addEventListener('submit', submitForm);
 document.addEventListener('DOMContentLoaded', () => {
     // Shows the view which was displayed prior to page refresh
     viewSwap(data.view);
@@ -186,15 +205,17 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
         toggleNoEntries();
     }
+    writeData(data);
 });
 $codeJournalHeaderEntries.addEventListener('click', (event) => {
-    viewSwap("entries");
     event.preventDefault();
+    viewSwap("entries");
 });
 $newBtn.addEventListener('click', (event) => {
     event.preventDefault();
     viewSwap("entry-form");
     $entryFormHeader.textContent = "New Entry";
+    $deleteEntryBtn.style.opacity = "0";
     $photoPreview.setAttribute('src', "images/placeholder-image-square.jpg");
     $title.value = "";
     $photoURL.value = "";
@@ -209,6 +230,8 @@ $entriesList.addEventListener('click', (event) => {
         throw new Error('$notes does not exist for submitForm()');
     if (!$photoPreview)
         throw new Error('$photoPreview does not exist for submitForm()');
+    if (!$deleteEntryBtn)
+        throw new Error('$deleteEntryBtn does not exist for submitForm()');
     // Find the entry object in the data.entries array whose id matches the data-entry-id
     const eventTarget = event.target;
     if (eventTarget.classList.contains("fa-pen")) {
@@ -227,4 +250,42 @@ $entriesList.addEventListener('click', (event) => {
     $notes.value = data.editing.notes;
     // Updates the title of the entry-form view
     $entryFormHeader.textContent = "Edit Entry";
+    $deleteEntryBtn.style.opacity = "100";
+});
+$deleteEntryBtn.addEventListener("click", () => {
+    $deleteModal.showModal();
+});
+$deleteModalCancelBtn.addEventListener("click", () => {
+    $deleteModal.close();
+});
+$deleteModalConfirmBtn.addEventListener("click", () => {
+    if (!$entryFormHeader)
+        throw new Error('$entryFormHeader does not exist for submitForm()');
+    if (!$deleteEntryBtn)
+        throw new Error('$deleteEntryBtn does not exist for submitForm()');
+    for (let i = 0; i < data.entries.length; i++) {
+        if (data.entries[i].entryId === data.editing.entryId) {
+            data.entries.splice(i, 1);
+        }
+    }
+    writeData(data);
+    $entryFormHeader.textContent = "New Entry";
+    $deleteEntryBtn.style.opacity = "0";
+    data.editing = null;
+    if (data.entries) {
+        $entriesList.innerHTML = "";
+        for (const entry of data.entries) {
+            // Renders a DOM tree for the newly submitted entry object
+            const dataEntry = renderEntry(entry);
+            // Prepends the new DOM tree to the unordered list.
+            $entriesList.prepend(dataEntry);
+        }
+        // Displays a placeholder if there are no entries to render
+    }
+    else {
+        toggleNoEntries();
+    }
+    // Shows the ”entries” view
+    viewSwap("entries");
+    $deleteModal.close();
 });
