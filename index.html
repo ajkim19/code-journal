@@ -51,9 +51,19 @@
           <div class="row column-full notes-save">
             <label for="notes">Notes</label><br />
             <textarea name="notes" id="notes"></textarea><br />
-            <button class="save-btn">SAVE</button>
+            <div class="row delete-save">
+              <button type="button" class="delete-entry-btn">Delete Entry</button>
+              <button class="save-btn">SAVE</button>
+            </div>
           </div>
         </form>
+        <dialog class="delete-modal">
+          <div class="delete-modal-msg">Are you sure you want to delete this entry?</div>
+          <div class="row delete-modal-buttons">
+            <button type="button" class="delete-modal-cancel-btn">CANCEL</button>
+            <button type="button" class="delete-modal-confirm-btn">CONFIRM</button>
+          </div>
+        </dialog>
       </div>
       <div data-view="entries" class="entries-view">
         <div class="row column-full entries-header">
